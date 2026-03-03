@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>قسمها 💰</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg1: #0b1220;
+      --bg2: #0f2a3a;
+      --card: rgba(255, 255, 255, 0.08);
+      --card2: rgba(255, 255, 255, 0.06);
+      --border: rgba(255, 255, 255, 0.14);
+      --text: #e9f2ff;
+      --muted: rgba(233, 242, 255, 0.75);
+      --good: #3ee6b2;
+      --warn: #ffcc66;
+      --bad: #ff6b6b;
+      --accent: #7aa7ff;
+      --shadow: 0 18px 60px rgba(0, 0, 0, 0.35);
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Tajawal", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--text);
+      min-height: 100vh;
+      background: radial-gradient(1200px 700px at 20% 10%, rgba(122, 167, 255, 0.28), transparent 50%),
+                  radial-gradient(900px 600px at 80% 30%, rgba(62, 230, 178, 0.18), transparent 55%),
+                  linear-gradient(135deg, var(--bg1), var(--bg2));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .app-badge {
+      position: fixed;
+      top: 16px;
+      right: 16px;
+      z-index: 50;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.16);
+      background: rgba(0,0,0,0.22);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.28);
+      font-weight: 800;
+      letter-spacing: 0.2px;
+      color: rgba(233, 242, 255, 0.95);
+      user-select: none;
+    }
+
+    .wrap {
+      width: min(1100px, 100%);
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 18px;
+    }
+
+    @media (max-width: 980px) {
+      .wrap { grid-template-columns: 1fr; }
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+      overflow: hidden;
+    }
+
+    .cardHeader {
+      padding: 18px 18px 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.10);
+      background: linear-gradient(180deg, rgba(255,255,255,0.08), transparent);
+    }
+
+    .title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+    }
+
+    .subtitle {
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .cardBody { padding: 16px 18px 18px; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    @media (max-width: 640px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+
+    label {
+      display: block;
+      font-size: 0.95rem;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 12px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(0,0,0,0.20);
+      color: var(--text);
+      outline: none;
+    }
+
+    input:focus, select:focus {
+      border-color: rgba(122, 167, 255, 0.8);
+      box-shadow: 0 0 0 4px rgba(122, 167, 255, 0.16);
+    }
+
+    .row {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      appearance: none;
+      border: 1px solid rgba(255,255,255,0.16);
+      background: rgba(255,255,255,0.10);
+      color: var(--text);
+      padding: 11px 14px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-family: inherit;
+      font-weight: 600;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+    }
+
+    .btn:hover { transform: translateY(-1px); border-color: rgba(255,255,255,0.22); }
+    .btn:active { transform: translateY(0); }
+
+    .btnPrimary {
+      border-color: rgba(122, 167, 255, 0.55);
+      background: rgba(122, 167, 255, 0.20);
+    }
+
+    .btnDanger {
+      border-color: rgba(255, 107, 107, 0.55);
+      background: rgba(255, 107, 107, 0.14);
+    }
+
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(0,0,0,0.14);
+    }
+
+    .table th, .table td {
+      padding: 10px 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.10);
+      font-size: 0.95rem;
+      vertical-align: middle;
+    }
+
+    .table th {
+      color: rgba(233,242,255,0.82);
+      font-weight: 700;
+      background: rgba(255,255,255,0.05);
+    }
+
+    .table tr:last-child td { border-bottom: none; }
+
+    .table input {
+      padding: 10px 10px;
+      border-radius: 10px;
+    }
+
+    .hint {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .results {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .pill {
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255, 255, 255, 0.06);
+      padding: 14px;
+    }
+
+    .pillHeader {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .pillTitle { font-weight: 800; }
+
+    .pillValue {
+      font-weight: 800;
+      font-size: 1.05rem;
+    }
+
+    .pillNote {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.55;
+    }
+
+    .status {
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(0,0,0,0.18);
+      line-height: 1.6;
+      color: var(--muted);
+    }
+
+    .status.good { border-color: rgba(62, 230, 178, 0.45); color: rgba(62,230,178,0.95); background: rgba(62,230,178,0.10); }
+    .status.warn { border-color: rgba(255, 204, 102, 0.55); color: rgba(255,204,102,0.95); background: rgba(255,204,102,0.10); }
+    .status.bad { border-color: rgba(255, 107, 107, 0.55); color: rgba(255,107,107,0.98); background: rgba(255,107,107,0.10); }
+
+    .mini {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .bar {
+      height: 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.10);
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.10);
+      margin-top: 10px;
+    }
+
+    .bar > div {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, rgba(122,167,255,0.95), rgba(62,230,178,0.95));
+      transition: width 300ms ease;
+    }
+
+    .footerNote {
+      margin-top: 12px;
+      font-size: 0.85rem;
+      color: rgba(233,242,255,0.60);
+      line-height: 1.55;
+    }
+  </style>
+</head>
+<body>
+  <div class="app-badge">قسمها 💰</div>
+  <div class="wrap">
+    <section class="card">
+      <div class="cardHeader">
+        <div class="title">قسمها 💰</div>
+        <div class="subtitle">اكتب راتبك والديون والمصاريف الثابتة، وبنطلع لك توزيع شهري واضح يساعدك ما تعجز آخر الشهر.</div>
+      </div>
+      <div class="cardBody">
+        <div class="grid">
+          <div>
+            <label for="salary">الراتب الشهري (ريال)</label>
+            <input id="salary" type="number" inputmode="numeric" min="0" step="1" placeholder="مثال: 10000" />
+          </div>
+          <div>
+            <label for="fixed">المصاريف الثابتة (ريال) (إيجار/فواتير/بنزين...)</label>
+            <input id="fixed" type="number" inputmode="numeric" min="0" step="1" placeholder="مثال: 3500" />
+          </div>
+          <div>
+            <label for="minBuffer">هامش أمان آخر الشهر (ريال)</label>
+            <input id="minBuffer" type="number" inputmode="numeric" min="0" step="1" value="0" placeholder="مثال: 500" />
+          </div>
+          <div>
+            <label for="saveMode">طريقة الادخار</label>
+            <select id="saveMode">
+              <option value="percent">نسبة من المتبقي</option>
+              <option value="fixed">مبلغ ثابت</option>
+            </select>
+          </div>
+          <div>
+            <label for="saveValue">قيمة الادخار</label>
+            <input id="saveValue" type="number" inputmode="numeric" min="0" step="1" value="10" />
+            <div class="hint" id="saveHint">إذا اخترت النسبة: اكتب رقم مثل 10 = 10% من المتبقي بعد الثابت والديون.</div>
+          </div>
+          <div>
+            <label for="wantsValue">رفاهية / مصروف مرن</label>
+            <select id="wantsMode">
+              <option value="percent">نسبة من المتبقي</option>
+              <option value="fixed">مبلغ ثابت</option>
+            </select>
+            <div class="hint">الرفاهية تشمل الكافيهات/مطاعم/طلبات/ترفيه…</div>
+          </div>
+          <div>
+            <label for="wantsValueInput">قيمة الرفاهية</label>
+            <input id="wantsValueInput" type="number" inputmode="numeric" min="0" step="1" value="20" />
+            <div class="hint" id="wantsHint">إذا اخترت النسبة: اكتب رقم مثل 20 = 20% من المتبقي بعد الثابت والديون والادخار.</div>
+          </div>
+        </div>
+
+        <div style="height: 14px"></div>
+
+        <div class="row" style="justify-content: space-between;">
+          <div style="font-weight:800;">الديون (أضف كل دين + القسط الشهري)</div>
+          <div class="row">
+            <button class="btn" id="addDebtBtn" type="button">إضافة دين</button>
+            <button class="btn btnPrimary" id="calcBtn" type="button">تحليل وتوزيع</button>
+          </div>
+        </div>
+
+        <div style="height: 10px"></div>
+
+        <table class="table" aria-label="جدول الديون">
+          <thead>
+            <tr>
+              <th style="width: 44%">اسم الدين</th>
+              <th style="width: 22%">المتبقي (اختياري)</th>
+              <th style="width: 22%">القسط الشهري</th>
+              <th style="width: 12%">حذف</th>
+            </tr>
+          </thead>
+          <tbody id="debtsBody"></tbody>
+        </table>
+
+        <div class="hint">ملاحظة: لو ما عندك ديون، اترك الجدول فاضي واضغط "تحليل وتوزيع".</div>
+      </div>
+    </section>
+
+    <aside class="card">
+      <div class="cardHeader">
+        <div class="title">النتيجة الشهرية</div>
+        <div class="subtitle">هنا يطلع لك توزيع مفهوم بالأرقام عشان تعرف وش تصرف.</div>
+      </div>
+      <div class="cardBody">
+        <div id="status" class="status">ادخل بياناتك ثم اضغط "تحليل وتوزيع".</div>
+
+        <div style="height: 12px"></div>
+
+        <div class="results">
+          <div class="pill">
+            <div class="pillHeader">
+              <div class="pillTitle">المصاريف الثابتة</div>
+              <div class="pillValue" id="outFixed">—</div>
+            </div>
+            <div class="pillNote">هذي تُدفع أولاً قبل أي شيء.</div>
+          </div>
+
+          <div class="pill">
+            <div class="pillHeader">
+              <div class="pillTitle">الديون (الأقساط الشهرية)</div>
+              <div class="pillValue" id="outDebt">—</div>
+            </div>
+            <div class="pillNote">نجمع أقساط جميع الديون.</div>
+          </div>
+
+          <div class="pill">
+            <div class="pillHeader">
+              <div class="pillTitle">الادخار</div>
+              <div class="pillValue" id="outSave">—</div>
+            </div>
+            <div class="pillNote">يطلع حسب اختيارك (نسبة أو مبلغ ثابت).</div>
+          </div>
+
+          <div class="pill">
+            <div class="pillHeader">
+              <div class="pillTitle">الرفاهية / المصروف المرن</div>
+              <div class="pillValue" id="outWants">—</div>
+            </div>
+            <div class="pillNote">هذا الجزء اللي تصرفه براحتك بدون ما تتضرر نهاية الشهر.</div>
+          </div>
+
+          <div class="pill">
+            <div class="pillHeader">
+              <div class="pillTitle">متبقي للطوارئ / هامش</div>
+              <div class="pillValue" id="outBuffer">—</div>
+            </div>
+            <div class="pillNote">إذا كان سالب معناها بتتعجز آخر الشهر.</div>
+            <div class="bar"><div id="bar"></div></div>
+          </div>
+
+          <div class="mini">
+            <div class="pill">
+              <div class="pillHeader">
+                <div class="pillTitle">إجمالي التوزيع</div>
+                <div class="pillValue" id="outTotal">—</div>
+              </div>
+            </div>
+            <div class="pill">
+              <div class="pillHeader">
+                <div class="pillTitle">الراتب</div>
+                <div class="pillValue" id="outSalary">—</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="footerNote">الأرقام تقريبية ومساعدة للتخطيط. إذا عندك مصاريف غير ثابتة (مثل مشتريات موسمية) أضفها ضمن الرفاهية أو ارفع هامش الأمان.</div>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <script>
+    const el = (id) => document.getElementById(id);
+
+    const debtsBody = el('debtsBody');
+    const addDebtBtn = el('addDebtBtn');
+    const calcBtn = el('calcBtn');
+
+    const salaryEl = el('salary');
+    const fixedEl = el('fixed');
+    const minBufferEl = el('minBuffer');
+
+    const saveModeEl = el('saveMode');
+    const saveValueEl = el('saveValue');
+    const saveHintEl = el('saveHint');
+
+    const wantsModeEl = el('wantsMode');
+    const wantsValueInputEl = el('wantsValueInput');
+    const wantsHintEl = el('wantsHint');
+
+    function formatSARFromHalalas(halalas) {
+      if (!Number.isFinite(halalas)) return '—';
+      const riyals = halalas / 100;
+      const formatted = riyals.toLocaleString('ar-SA', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      return `${formatted} ريال`;
+    }
+
+    function parseMoneyToHalalas(v) {
+      const n = Number(v);
+      if (!Number.isFinite(n)) return 0;
+      if (n <= 0) return 0;
+      return Math.round(n * 100);
+    }
+
+    function createDebtRow(initial = {}) {
+      const tr = document.createElement('tr');
+
+      const tdName = document.createElement('td');
+      const tdRemaining = document.createElement('td');
+      const tdPay = document.createElement('td');
+      const tdDel = document.createElement('td');
+
+      const name = document.createElement('input');
+      name.type = 'text';
+      name.placeholder = 'مثال: قرض سيارة';
+      name.value = initial.name ?? '';
+
+      const remaining = document.createElement('input');
+      remaining.type = 'number';
+      remaining.min = '0';
+      remaining.step = '1';
+      remaining.placeholder = 'اختياري';
+      remaining.value = initial.remaining ?? '';
+
+      const pay = document.createElement('input');
+      pay.type = 'number';
+      pay.min = '0';
+      pay.step = '1';
+      pay.placeholder = 'مثال: 1200';
+      pay.value = initial.payment ?? '';
+
+      const delBtn = document.createElement('button');
+      delBtn.type = 'button';
+      delBtn.className = 'btn btnDanger';
+      delBtn.textContent = 'حذف';
+      delBtn.addEventListener('click', () => {
+        tr.remove();
+      });
+
+      tdName.appendChild(name);
+      tdRemaining.appendChild(remaining);
+      tdPay.appendChild(pay);
+      tdDel.appendChild(delBtn);
+
+      tr.appendChild(tdName);
+      tr.appendChild(tdRemaining);
+      tr.appendChild(tdPay);
+      tr.appendChild(tdDel);
+
+      return tr;
+    }
+
+    function getDebts() {
+      const rows = Array.from(debtsBody.querySelectorAll('tr'));
+      return rows.map((tr) => {
+        const inputs = tr.querySelectorAll('input');
+        const name = (inputs[0]?.value ?? '').trim();
+        const remaining = parseMoneyToHalalas(inputs[1]?.value);
+        const payment = parseMoneyToHalalas(inputs[2]?.value);
+        return { name, remaining, payment };
+      }).filter(d => d.payment > 0 || d.remaining > 0 || d.name.length > 0);
+    }
+
+    function updateHints() {
+      if (saveModeEl.value === 'percent') {
+        saveHintEl.textContent = 'إذا اخترت النسبة: اكتب رقم مثل 10 = 10% من المتبقي بعد الثابت والديون.';
+      } else {
+        saveHintEl.textContent = 'إذا اخترت مبلغ ثابت: اكتب مبلغ الادخار الشهري (مثال: 1000).';
+      }
+
+      if (wantsModeEl.value === 'percent') {
+        wantsHintEl.textContent = 'إذا اخترت النسبة: اكتب رقم مثل 20 = 20% من المتبقي بعد الثابت والديون والادخار.';
+      } else {
+        wantsHintEl.textContent = 'إذا اخترت مبلغ ثابت: اكتب مصروف الرفاهية الشهري (مثال: 2000).';
+      }
+    }
+
+    function clampPercent(p) {
+      if (!Number.isFinite(p)) return 0;
+      return Math.min(100, Math.max(0, p));
+    }
+
+    function computePlan({ salaryH, fixedH, minBufferH, debtsSumH, saveMode, saveValue, wantsMode, wantsValue }) {
+      const essentialsH = fixedH + debtsSumH;
+      const afterEssentialsH = salaryH - essentialsH;
+
+      if (salaryH <= 0) {
+        return { ok: false, reason: 'أدخل الراتب أولاً.' };
+      }
+
+      const availableAfterBufferH = afterEssentialsH - minBufferH;
+
+      if (afterEssentialsH < 0) {
+        return {
+          ok: false,
+          reason: 'عندك عجز لأن المصاريف الثابتة + أقساط الديون أكبر من الراتب.',
+          salaryH,
+          fixedH,
+          debtsSumH,
+          essentialsH,
+          afterEssentialsH,
+          minBufferH
+        };
+      }
+
+      if (availableAfterBufferH < 0) {
+        return {
+          ok: false,
+          reason: 'هامش الأمان + (الثابت والديون) أعلى من الراتب. قلل هامش الأمان أو خفّض الثابت/أعد جدولة الديون.',
+          salaryH,
+          fixedH,
+          debtsSumH,
+          essentialsH,
+          afterEssentialsH,
+          minBufferH
+        };
+      }
+
+      let saveH = 0;
+      if (saveMode === 'percent') {
+        const p = clampPercent(saveValue);
+        saveH = Math.round((availableAfterBufferH * p) / 100);
+      } else {
+        saveH = Math.min(availableAfterBufferH, parseMoneyToHalalas(saveValue));
+      }
+
+      const afterSaveH = availableAfterBufferH - saveH;
+
+      let wantsH = 0;
+      if (wantsMode === 'percent') {
+        const p = clampPercent(wantsValue);
+        wantsH = Math.round((afterSaveH * p) / 100);
+      } else {
+        wantsH = Math.min(afterSaveH, parseMoneyToHalalas(wantsValue));
+      }
+
+      const leftoverH = afterSaveH - wantsH;
+      const bufferTotalH = minBufferH + leftoverH;
+      const totalAllocatedH = essentialsH + saveH + wantsH + bufferTotalH;
+
+      return {
+        ok: true,
+        salaryH,
+        fixedH,
+        debtsSumH,
+        essentialsH,
+        afterEssentialsH,
+        minBufferH,
+        availableAfterBufferH,
+        saveH,
+        wantsH,
+        leftoverH,
+        bufferTotalH,
+        totalAllocatedH
+      };
+    }
+
+    function setStatus(type, text) {
+      const s = el('status');
+      s.className = `status ${type}`;
+      s.textContent = text;
+    }
+
+    function render(plan) {
+      el('outSalary').textContent = formatSARFromHalalas(plan.salaryH);
+      el('outFixed').textContent = formatSARFromHalalas(plan.fixedH);
+      el('outDebt').textContent = formatSARFromHalalas(plan.debtsSumH);
+      el('outSave').textContent = formatSARFromHalalas(plan.saveH);
+      el('outWants').textContent = formatSARFromHalalas(plan.wantsH);
+      el('outBuffer').textContent = formatSARFromHalalas(plan.bufferTotalH);
+      el('outTotal').textContent = formatSARFromHalalas(plan.totalAllocatedH);
+
+      const bar = el('bar');
+      const ratio = plan.salaryH > 0 ? (plan.totalAllocatedH / plan.salaryH) * 100 : 0;
+      const safeRatio = Math.min(100, Math.max(0, ratio));
+      bar.style.width = `${safeRatio}%`;
+
+      if (plan.leftoverH >= Math.round(plan.salaryH * 0.10)) {
+        setStatus('good', 'ممتاز: عندك هامش أمان جيد فوق المبلغ المحجوز.');
+      } else {
+        setStatus('good', 'تمام: التوزيع متوازن وما راح يعجزك آخر الشهر بإذن الله.');
+      }
+    }
+
+    function analyze() {
+      const salaryH = parseMoneyToHalalas(salaryEl.value);
+      const fixedH = parseMoneyToHalalas(fixedEl.value);
+      const minBufferH = parseMoneyToHalalas(minBufferEl.value);
+
+      const debts = getDebts();
+      const debtsSumH = debts.reduce((acc, d) => {
+        const cappedPayment = d.remaining > 0 ? Math.min(d.payment, d.remaining) : d.payment;
+        return acc + (Number.isFinite(cappedPayment) ? cappedPayment : 0);
+      }, 0);
+
+      const saveMode = saveModeEl.value;
+      const saveValueRaw = saveValueEl.value;
+
+      const wantsMode = wantsModeEl.value;
+      const wantsValueRaw = wantsValueInputEl.value;
+
+      const plan = computePlan({
+        salaryH,
+        fixedH,
+        minBufferH,
+        debtsSumH,
+        saveMode,
+        saveValue: saveMode === 'fixed' ? saveValueRaw : Number(saveValueRaw),
+        wantsMode,
+        wantsValue: wantsMode === 'fixed' ? wantsValueRaw : Number(wantsValueRaw)
+      });
+
+      if (plan.ok === false && plan.reason) {
+        setStatus('bad', plan.reason);
+        el('outSalary').textContent = formatSARFromHalalas(salaryH);
+        el('outFixed').textContent = formatSARFromHalalas(fixedH);
+        el('outDebt').textContent = formatSARFromHalalas(debtsSumH);
+        el('outSave').textContent = '—';
+        el('outWants').textContent = '—';
+        el('outBuffer').textContent = '—';
+        el('outTotal').textContent = '—';
+        el('bar').style.width = '0%';
+        return;
+      }
+
+      render(plan);
+    }
+
+    addDebtBtn.addEventListener('click', () => {
+      debtsBody.appendChild(createDebtRow());
+    });
+
+    calcBtn.addEventListener('click', analyze);
+
+    saveModeEl.addEventListener('change', updateHints);
+    wantsModeEl.addEventListener('change', updateHints);
+
+    updateHints();
+
+    debtsBody.appendChild(createDebtRow({ name: 'قسط / دين', payment: 0 }));
+  </script>
+</body>
+</html>
